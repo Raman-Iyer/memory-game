@@ -49,7 +49,8 @@ import {
     faRadiation,
     faRobot,
     faShoePrints,
-    faShapes
+    faShapes,
+    faExclamation
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -102,5 +103,6 @@ library.add(
     faRadiation,
     faRobot,
     faShoePrints,
-    faShapes
+    faShapes,
+    faExclamation
     );
