@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // Tile component for individual tiles
 function Tile(props){
     // icon is the design and onClick is the handler
-    const { index, icon, onClick } = props
+    const { index, icon, onClick, tileWidth } = props
 
     // Just a plain button with a onClick event
     return (
-        <button data-testid={index} onClick={onClick}>
-            <FontAwesomeIcon icon={icon} size="3x" fixedWidth/>
+        <button className="tile" data-testid={index} onClick={onClick} style={{flexGrow: 0, flexShrink: 0, flexBasis: `${tileWidth}%`}}>
+            <FontAwesomeIcon icon={icon} fixedWidth/>
         </button>
     )
 }

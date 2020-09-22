@@ -50,7 +50,8 @@ import {
     faRobot,
     faShoePrints,
     faShapes,
-    faExclamation
+    faExclamation,
+    faTimes
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -104,5 +105,6 @@ library.add(
     faRobot,
     faShoePrints,
     faShapes,
-    faExclamation
+    faExclamation,
+    faTimes
     );

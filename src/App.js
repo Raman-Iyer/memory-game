@@ -5,6 +5,8 @@ import './fontawesome'
 import Board from './components/Board';
 import initBoard from './helpers/initializeBoard'
 import isMatchFound from './helpers/isMatchFound'
+import calculateWinner from './helpers/calculateWinner'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // App Component
 function App() {
@@ -22,6 +24,10 @@ function App() {
   const [p2Score, setP2Score] = useState(0)
   const [row, setRow] = useState(2)
   const [col, setCol] = useState(2)
+  const [matches, setMatches] = useState(0)
+
+  // Check for Winner after every move
+  const winner = calculateWinner(row, col, matches)
 
   // Set the default state
   function initializeBoard() {
@@ -45,7 +51,7 @@ function App() {
   }
 
   function handleClick(i) {
-    if (tileList[i].enabled || isProcessing) return
+    if (tileList[i].enabled || isProcessing || winner) return
 
     const newList = tileList.map((tile, index) => {
       if (index === i) {
@@ -79,7 +85,8 @@ function App() {
         })
         setIsTileTurned(false)
         setTileList(foundTiles)
-        setTurn(turn === "p1" ? "p2" : "p1")
+        setMatches(matches + 1)
+        //setTurn(turn === "p1" ? "p2" : "p1")
       }
       else {
         setIsProcessing(true)
@@ -112,17 +119,48 @@ function App() {
     }
   }
 
+  function handleReset() {
+    setIsGameStarted(false)
+    //setRow(2)
+    //setCol(2)
+    setTileList([])
+    setIsValidGrid(true)
+    setP1Score(0)
+    setP2Score(0)
+    setTurn("p1")
+    setMatches(0)
+  }
+
   return (
-    <div className="App">
-      <div>
-        <input onChange={handleOnChange} id="row" type="number" value={row} />
-        <span>X</span>
-        <input onChange={handleOnChange} id="col" type="number" value={col} />
+    <div className="app">
+      <h1>Memory Game</h1>
+      <div style={{ display: !isGameStarted ? "block" : "none" }}>
+        <div>
+          <h3>Select Grid Size</h3>
+          <input className="grid-input" onChange={handleOnChange} id="row" type="number" value={row} />
+          <FontAwesomeIcon icon={"times"} fixedWidth />
+          <input className="grid-input" onChange={handleOnChange} id="col" type="number" value={col} />
+        </div>
+        <h4 className="error" style={{ display: !isValidGrid ? "block" : "none" }}>The Grid Entered had odd number of cells or the cell count is less than 4</h4>
+        <button className="button start" style={{ display: isValidGrid ? "inline-block" : "none" }} onClick={initializeBoard}>Start Game!</button>
       </div>
-      <button style={{ display: isValidGrid ? "inline-block" : "none" }} onClick={initializeBoard}>Start!</button>
-      <div>{turn} Player 1 : {p1Score} Player 2 : {p2Score}</div>
-      <div style={{ display: isGameStarted ? "block" : "none" }}>
-        <Board tileList={tileList} onClick={handleClick} defaultIcon={defaultIcon} col={col}/>
+      <div className="game" style={{ display: isGameStarted ? "block" : "none" }}>
+        <div>
+          <div>
+            <h3>Score:-</h3>
+            <h4 className="score">Player 1 : {p1Score}</h4>
+            <h4 className="score">Player 2 : {p2Score}</h4>
+          </div>
+        </div>
+        <div>
+          <h2>Board</h2>
+          <div>
+            <h3>{winner ?
+              p1Score === p2Score ? "Game is a draw!" : p1Score > p2Score ? "Player 1 Wins!" : "Player 2 Wins!" : turn === "p1" ? "Player 1's Turn" : "Player 2's Turn"}</h3>
+          </div>
+          <Board tileList={tileList} onClick={handleClick} defaultIcon={defaultIcon} col={col} />
+        </div>
+        <button class="button reset" onClick={handleReset} style={{ display: winner ? "inline-block" : "none" }}>Reset!</button>
       </div>
     </div>
   );
