@@ -1,5 +1,5 @@
 // Imports
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import './fontawesome'
 import Board from './components/Board';
@@ -25,9 +25,12 @@ function App() {
   const [row, setRow] = useState(2)
   const [col, setCol] = useState(2)
   const [matches, setMatches] = useState(0)
+  const [winner, setWinner] = useState(false)
 
   // Check for Winner after every move
-  const winner = calculateWinner(row, col, matches)
+  useEffect(() => {
+    setWinner(calculateWinner(row, col, matches))
+  })
 
   // Set the default state
   function initializeBoard() {
@@ -52,7 +55,7 @@ function App() {
   }
 
   // Handle the clicks on the tiles and process further
-  function handleClick(i) {
+  function handleTileClick(i) {
     // Should be handled only if the tile is not turned over, there is no winner
     // The tiles are turned back in settimeout thus, no clicks to be handled during that time
     if (tileList[i].enabled || isProcessing || winner) return
@@ -124,17 +127,22 @@ function App() {
     }
   }
 
+  // Validate grid values if they are proper
+  function validateGrid(row, col){
+    return !((row % 2 !== 0 && col % 2 !== 0) || col * row < 4 || col * row > 100)
+  }
+
   // Handle the change of the grid size and check for the grid validitiy
-  function handleOnChange(e) {
+  function handleOnGridInputChange(e) {
     let { id, value } = e.target
     value = parseInt(value)
     if (id === "row") {
       // Grid is valid only if the cells are even and the cell count >= 4
-      setIsValidGrid(((col % 2 !== 0 && value % 2 !== 0) || col * value < 4 || col * value > 100) ? false : true)
+      setIsValidGrid(validateGrid(value, col))
       setRow(value)
     }
     else {
-      setIsValidGrid(((row % 2 !== 0 && value % 2 !== 0) || row * value < 4 || row * value > 100) ? false : true)
+      setIsValidGrid(validateGrid(row, value))
       setCol(value)
     }
   }
@@ -158,9 +166,9 @@ function App() {
           {/* Select the size of the grid to be played (Max is 10 X 10) */}
           <h3>Select Grid Size</h3>
           <label htmlFor="row">Row</label>
-          <input className="grid-input" onChange={handleOnChange} id="row" type="number" value={row} />
+          <input className="grid-input" onChange={handleOnGridInputChange} id="row" type="number" value={row} />
           <FontAwesomeIcon icon={"times"} fixedWidth />
-          <input className="grid-input" onChange={handleOnChange} id="col" type="number" value={col} />
+          <input className="grid-input" onChange={handleOnGridInputChange} id="col" type="number" value={col} />
           <label htmlFor="col">Col</label>
         </div>
         {/* Show error message if the grid is invalid */}
@@ -183,7 +191,7 @@ function App() {
             {/* On basis of winner or turn display appropriate message */}
             <h3>{winner ? p1Score === p2Score ? "Game is a draw!" : p1Score > p2Score ? "Player 1 Wins!" : "Player 2 Wins!" : turn === "p1" ? "Player 1's Turn" : "Player 2's Turn"}</h3>
           </div>
-          <Board tileList={tileList} onClick={handleClick} defaultIcon={defaultIcon} col={col} />
+          <Board tileList={tileList} onClick={handleTileClick} defaultIcon={defaultIcon} col={col} />
         </div>
         {/* Reset the state again after the game is completed */}
         <button class="button reset" onClick={handleReset} style={{ display: winner ? "inline-block" : "none" }}>Reset!</button>
