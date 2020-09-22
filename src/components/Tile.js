@@ -15,7 +15,7 @@ function Tile(props){
     // Just a plain button with a onClick event
     return (
         <button className={classes} data-testid={index} onClick={onClick} style={{flexGrow: 0, flexShrink: 0, flexBasis: `${tileWidth}%`}}>
-            <FontAwesomeIcon icon={icon} fixedWidth/>
+            <FontAwesomeIcon data-testid={icon} icon={icon} fixedWidth/>
         </button>
     )
 }
