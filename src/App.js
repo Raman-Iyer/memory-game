@@ -155,18 +155,18 @@ function App() {
       <h1>Memory Game</h1>
       <div style={{ display: !isGameStarted ? "block" : "none" }}>
         <div>
-          {/* Select the size of the grid to be played (Max is 10 X 10) */}
+          {/* Select the size of the grid to be played (Max is 100 Tiles) */}
           <h3>Select Grid Size</h3>
           <label htmlFor="row">Row</label>
-          <input className="grid-input" onChange={handleOnChange} id="row" type="number" value={row} />
+          <input data-testid="row" className="grid-input" onChange={handleOnChange} id="row" type="number" value={row} />
           <FontAwesomeIcon icon={"times"} fixedWidth />
-          <input className="grid-input" onChange={handleOnChange} id="col" type="number" value={col} />
+          <input data-testid="col" className="grid-input" onChange={handleOnChange} id="col" type="number" value={col} />
           <label htmlFor="col">Col</label>
         </div>
         {/* Show error message if the grid is invalid */}
-        <h4 className="error" style={{ display: !isValidGrid ? "block" : "none" }}>The Grid Entered had odd number of cells or the cell count is not between 4 and 100</h4>
+        <h4 data-testid="error" className="error" style={{ display: !isValidGrid ? "block" : "none" }}>The Grid Entered had odd number of cells or the cell count is not between 4 and 100</h4>
         {/* Show the start game button only when the grid is valid */}
-        <button className="button start" style={{ display: isValidGrid ? "inline-block" : "none" }} onClick={initializeBoard}>Start Game!</button>
+        <button data-testid="start" className="button start" style={{ display: isValidGrid ? "inline-block" : "none" }} onClick={initializeBoard}>Start Game!</button>
       </div>
       <div className="game" style={{ display: isGameStarted ? "block" : "none" }}>
         <div>
@@ -186,7 +186,7 @@ function App() {
           <Board tileList={tileList} onClick={handleClick} defaultIcon={defaultIcon} col={col} />
         </div>
         {/* Reset the state again after the game is completed */}
-        <button class="button reset" onClick={handleReset} style={{ display: winner ? "inline-block" : "none" }}>Reset!</button>
+        <button className="button reset" onClick={handleReset} style={{ display: winner ? "inline-block" : "none" }}>Reset!</button>
       </div>
     </div>
   );
