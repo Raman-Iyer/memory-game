@@ -1,4 +1,6 @@
+// Imports
 import {library} from '@fortawesome/fontawesome-svg-core'
+// Import the necessary icons
 import {
     faBomb,
     faBiohazard,
@@ -54,6 +56,7 @@ import {
     faTimes
 } from '@fortawesome/free-solid-svg-icons'
 
+// Add the icons to the library for use
 library.add(
     faBomb,
     faBiohazard,

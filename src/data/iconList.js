@@ -1,3 +1,4 @@
+// List of font awesome icons we can use for the tiles
 const iconList = [
     "bomb",
     "biohazard",
@@ -51,4 +52,5 @@ const iconList = [
     "shapes"
 ]
 
+// export the created list
 export default iconList

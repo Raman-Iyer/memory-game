@@ -18,6 +18,7 @@ function initBoard(rows, cols) {
 
     let newTilelist = Array(tiles).fill(null)
     for (let i = 0; i < icons.length; i++) {
+        // Determine first position for the icon
         let randomPos = getRandomInt(positionHolders.length)
         let position1 = positionHolders[randomPos]
         newTilelist[position1] = {
@@ -29,6 +30,7 @@ function initBoard(rows, cols) {
         }
         positionHolders.splice(randomPos, 1)
 
+        // Determine second position for the icon
         randomPos = getRandomInt(positionHolders.length)
         let position2 = positionHolders[randomPos]
         newTilelist[position2] = {
@@ -41,7 +43,9 @@ function initBoard(rows, cols) {
         positionHolders.splice(randomPos, 1)
     }
 
+    // return the initialized board
     return newTilelist
 }
 
+// Export the created function
 export default initBoard

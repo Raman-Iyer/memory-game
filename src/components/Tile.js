@@ -11,6 +11,7 @@ function Tile(props){
     let classes = "tile"
     classes += icon === "exclamation" ? " default-tile" : ""
     classes += finder === "" ? "" : " " + finder
+    
     // Just a plain button with a onClick event
     return (
         <button className={classes} data-testid={index} onClick={onClick} style={{flexGrow: 0, flexShrink: 0, flexBasis: `${tileWidth}%`}}>
