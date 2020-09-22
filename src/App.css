@@ -22,6 +22,19 @@
   outline: none;
 }
 
+.default-tile {
+  background-color: #292929;
+  color: #e98724;
+}
+
+.p1 {
+  color: #2ECC71;
+}
+
+.p2 {
+  color: #D91E18;
+}
+
 .button {
 	display: inline-block;
   margin: 20px 0 0 0;

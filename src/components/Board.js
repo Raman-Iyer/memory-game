@@ -29,7 +29,7 @@ function Board(props) {
                     return (
                         <Tile key={i} index={i} icon={enabled ? icon : defaultIcon} onClick={() => {
                             onClick(i)
-                        }} tileWidth={tileWidth} />
+                        }} tileWidth={tileWidth} finder={tile.finder} />
                     )
                 })
             }

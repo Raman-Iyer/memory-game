@@ -24,6 +24,7 @@ function initBoard(rows, cols) {
             icon: icons[i],
             enabled: false,
             found: false,
+            finder: "",
             matchId: i
         }
         positionHolders.splice(randomPos, 1)
@@ -34,6 +35,7 @@ function initBoard(rows, cols) {
             icon: icons[i],
             enabled: false,
             found: false,
+            finder: "",
             matchId: i
         }
         positionHolders.splice(randomPos, 1)

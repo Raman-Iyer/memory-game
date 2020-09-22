@@ -45,6 +45,7 @@ function App() {
         icon: tile.icon,
         enabled: false,
         found: tile.found,
+        finder: tile.finder,
         matchId: tile.matchId
       }
     })
@@ -59,6 +60,7 @@ function App() {
           icon: tile.icon,
           enabled: true,
           found: tile.found,
+          finder: tile.finder,
           matchId: tile.matchId
         }
       }
@@ -78,6 +80,7 @@ function App() {
               icon: tile.icon,
               enabled: tile.enabled,
               found: true,
+              finder: turn,
               matchId: tile.matchId
             }
           }
@@ -137,9 +140,11 @@ function App() {
       <div style={{ display: !isGameStarted ? "block" : "none" }}>
         <div>
           <h3>Select Grid Size</h3>
+          <label htmlFor="row">Row</label>
           <input className="grid-input" onChange={handleOnChange} id="row" type="number" value={row} />
           <FontAwesomeIcon icon={"times"} fixedWidth />
           <input className="grid-input" onChange={handleOnChange} id="col" type="number" value={col} />
+          <label htmlFor="col">Col</label>
         </div>
         <h4 className="error" style={{ display: !isValidGrid ? "block" : "none" }}>The Grid Entered had odd number of cells or the cell count is less than 4</h4>
         <button className="button start" style={{ display: isValidGrid ? "inline-block" : "none" }} onClick={initializeBoard}>Start Game!</button>
@@ -148,8 +153,8 @@ function App() {
         <div>
           <div>
             <h3>Score:-</h3>
-            <h4 className="score">Player 1 : {p1Score}</h4>
-            <h4 className="score">Player 2 : {p2Score}</h4>
+            <h4 className="score">Player 1 : <span className="p1">{p1Score}</span></h4>
+            <h4 className="score">Player 2 : <span className="p2">{p2Score}</span></h4>
           </div>
         </div>
         <div>
