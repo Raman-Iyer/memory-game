@@ -21,9 +21,6 @@ function Board(props) {
 
     // Add all the boxes with an index to keep track of the box that was click
     return (
-        <>
-        <div>efgh</div>
-        <div>pqrs</div>
         <div style={{width : containerWidth}} className="board">
             {
                 // Map the tileList prop to set the corresponding values in each tile
@@ -37,7 +34,6 @@ function Board(props) {
                 })
             }
         </div>
-        </>
     )
 }
 
